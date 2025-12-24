@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(255)
+  email           String    @unique @db.VarChar(255)
+  emailVerifiedAt DateTime? @map("email_verified_at")
+  password        String    @db.VarChar(255)
+  rememberToken   String?   @map("remember_token") @db.VarChar(100)
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  sessions            Session[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@map("users")
+}
+
+model PasswordResetToken {
+  email     String   @id @db.VarChar(255)
+  token     String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [email], references: [email], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+model Session {
+  id           String   @id @default(cuid()) @db.VarChar(255)
+  userId       Int      @map("user_id")
+  ipAddress    String?  @map("ip_address") @db.VarChar(45)
+  userAgent    String?  @map("user_agent")
+  payload      Json?
+  lastActivity DateTime @default(now()) @updatedAt @map("last_activity")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([lastActivity])
+  @@map("sessions")
+}
+
+model Cache {
+  key        String @id @db.VarChar(255)
+  value      String
+  expiration Int
+
+  @@map("cache")
+}
+
+model CacheLock {
+  key        String @id @db.VarChar(255)
+  owner      String @db.VarChar(255)
+  expiration Int
+
+  @@map("cache_locks")
+}
