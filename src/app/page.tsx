@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 
 export default async function Home() {
   return (
     <>
       <Navbar />
-      <main className="border-[#dad9d6] mx-auto max-w-7xl px-4 xl:border-r xl:border-l xl:px-16">
+      <main className="border-[#dad9d6] dark:border-neutral-700 mx-auto max-w-7xl px-4 xl:border-r xl:border-l xl:px-16 pt-8 sm:pt-20">
         <div className="grid grid-cols-12 gap-4 lg:gap-6 xl:gap-x-10 mt-8 sm:mt-20">
           <div className="relative col-span-12 grid grid-cols-subgrid">
             <div className="dummy-marker absolute -left-3.5 -translate-x-px md:top-1 lg:top-3 xl:-left-16">
@@ -35,7 +35,7 @@ export default async function Home() {
           </div>
         </div>
       </main>
-      <footer className="border-t border-neutral-200 bg-white">
+      <footer className="border-t border-neutral-200 dark:border-neutral-700">
         <div className="mx-auto w-full max-w-full px-4 pt-10 md:pt-24 xl:max-w-7xl xl:px-16">
           <p className="text-right">A project by Nguyen Gia Hao</p>
         </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-sans",
@@ -32,8 +33,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${instrumentSans.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <Toaster className="pointer-events-auto" closeButton />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

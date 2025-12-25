@@ -254,13 +254,6 @@ export class Str {
   }
 
   /**
-   * Get the length of a string
-   */
-  static length(value: string): number {
-    return value.length;
-  }
-
-  /**
    * Convert a string to lowercase
    */
   static lower(value: string): string {
